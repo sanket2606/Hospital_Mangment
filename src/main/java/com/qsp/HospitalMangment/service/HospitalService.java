@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -69,6 +71,17 @@ public class HospitalService {
 		
 	}
 	
+	public Hospital daeleteHospitalById(@RequestParam int id)
+	{
+		return  hospitalDao.daeleteHospitalById(id);
+		
+	}
+	
+	public List<Hospital> daeleteHospitalByName(String name)
+	{
+		return   hospitalDao.deleteHospitalByName(name);
+		
+	}
 	
 
 }

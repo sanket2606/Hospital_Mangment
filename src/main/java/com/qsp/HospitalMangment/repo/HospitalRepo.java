@@ -1,5 +1,7 @@
 package com.qsp.HospitalMangment.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,7 +13,8 @@ import com.qsp.HospitalMangment.dto.Hospital;
 public interface HospitalRepo extends JpaRepository<Hospital, Integer> {
 	
 	Hospital findHospitalByhospitalemail(String email);
-	Hospital findHospitalByhospitalname(String name);
-	Hospital findHospitalByhospitalCEO(String ceo);
+	List<Hospital> findHospitalByhospitalname(String name);
+	List<Hospital> findHospitalByhospitalCEO(String ceo);
+	
 
 }
