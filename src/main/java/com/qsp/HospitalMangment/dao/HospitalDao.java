@@ -119,7 +119,7 @@ public class HospitalDao {
 			
 		}
 	     
-	     public Hospital daeleteHospitalById(@RequestParam int id)
+	     public Hospital deleteHospitalById(@RequestParam int id)
 	 	{
 	 		Optional<Hospital> optional = hospitalRepo.findById(id);
 	 		if(optional.isPresent())
@@ -133,26 +133,24 @@ public class HospitalDao {
 	 			return null;
 	 		}
 	 	}
-	     public List<Hospital> deleteHospitalByName(String name)
-	 	{
-	 		List<Hospital> hospitals=  hospitalRepo.findHospitalByhospitalname(name);
-	 		System.out.println(hospitals.isEmpty());
-	 		if(hospitals.isEmpty()==false)
-	 		{
-	 			for (Hospital hospital : hospitals) 
-	 			{
-	 				System.out.println(hospital);
-	 				hospitalRepo.delete(hospital);
-					
-				}
-	 			return hospitals;
-	 		}
-	 		else
-	 		{
-	 			return null;
-	 		}
-	 		
-	 	}
+	     
+	     public Hospital deleteHospitalByEmail(@RequestParam String  email)
+	  	{
+	  		Hospital hospital = hospitalRepo.findHospitalByhospitalemail(email);
+	  		if(hospital != null)
+	  		{
+	  			hospitalRepo.delete(hospitalRepo.findHospitalByhospitalemail(email));
+	  			return hospital;
+	  		}
+	  		else
+	  		{
+	  			return null;
+	  		}
+	  		
+	  	}
+	 	
+	 	
+	    
 	 	
 	
 
