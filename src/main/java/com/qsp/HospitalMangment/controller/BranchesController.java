@@ -3,6 +3,7 @@ package com.qsp.HospitalMangment.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,24 +24,26 @@ public class BranchesController
 	@Autowired
 	private BranchesService branchesService ;
 	@PostMapping
-	public ResponseStructure<Branch> saveBranch(@RequestParam int hosptalid,@RequestParam  int addressid,@RequestBody  Branch branch) 
+	public ResponseEntity saveBranch(@RequestParam int hosptalid,@RequestParam  int addressid,@RequestBody  Branch branch) 
 	{
 		return branchesService.saveBranch(hosptalid, addressid, branch);
 		
 	}
 	
 	@GetMapping
-	public ResponseStructure<Branch>  findBranchById(@RequestParam int id) 
+	public ResponseEntity<ResponseStructure<Branch>>  findBranchById(@RequestParam int id) 
 	{
 		return branchesService.findBranchById(id) ;
 		
 	}
 	@GetMapping("/Manager")
-	public List<Branch>  findBranchByManager(@RequestParam String manager) 
+	public ResponseStructure<List<Branch>>  findBranchByManager(@RequestParam String manager) 
 	{
 		return branchesService.findBranchByManager(manager) ;
 		
 	}
+	
+	
 	
 	
 

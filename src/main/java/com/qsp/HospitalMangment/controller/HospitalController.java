@@ -3,7 +3,7 @@ package com.qsp.HospitalMangment.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,35 +27,35 @@ public class HospitalController
 	@Autowired
 	private HospitalService service;
 	@PostMapping
-	public ResponseStructure<Hospital>  saveHospital(@RequestBody Hospital hospital)
+	public ResponseEntity<ResponseStructure<Hospital>>  saveHospital(@RequestBody Hospital hospital)
 	{
 		return  service.saveHospital(hospital);
 		
 	}
 
 	@PutMapping
-	public ResponseStructure<Hospital> updateHospital(@RequestParam int id,@RequestBody Hospital hospital)
+	public ResponseEntity<ResponseStructure<Hospital>> updateHospital(@RequestParam int id,@RequestBody Hospital hospital)
 	{
 		return  service.updateHospital(id,hospital);
 		
 	}
 	
 	@GetMapping
-	public ResponseStructure<Hospital> findHospitalById(@RequestParam int id)
+	public ResponseEntity<ResponseStructure<Hospital>> findHospitalById(@RequestParam int id)
 	{
 		return  service.findHospitalById(id);
 		
 	}
 	
 	@GetMapping("/Email/{email}")
-	public ResponseStructure<Hospital> findHospitalByEmail(@PathVariable String email)
+	public ResponseEntity<ResponseStructure<Hospital>> findHospitalByEmail(@PathVariable String email)
 	{
 		return  service.findHospitalByEmail(email);
 		
 	}
 	
 	@GetMapping("/Name/{name}")
-	public List<Hospital> findHospitalByName(@PathVariable String name)
+	public ResponseEntity<ResponseStructure<Hospital>> findHospitalByName(@PathVariable String name)
 	{
 		System.out.println("Controller"+name);
 		return  service.findHospitalByName(name);
@@ -64,34 +64,34 @@ public class HospitalController
 	}
 	
 	@GetMapping("/CEO/{ceo}")
-	public List<Hospital> findHospitalByCEO(@PathVariable String ceo)
+	public ResponseEntity<ResponseStructure<Hospital>> findHospitalByCEO(@PathVariable String ceo)
 	{
 		return  service.findHospitalByCEO(ceo);
 		
 	}
 	
 	@PatchMapping("/updateName")
-	public ResponseStructure<Hospital> updateHospitalName(@RequestParam int id,@RequestParam String name)
+	public ResponseEntity<ResponseStructure<Hospital>> updateHospitalName(@RequestParam int id,@RequestParam String name)
 	{
 		return  service.updateHospitalName(id,name);
 		
 	}
 	@PatchMapping("/updateEmail")
-	public ResponseStructure<Hospital> updateHospitalEmail(@RequestParam int id,@RequestParam String email)
+	public ResponseEntity<ResponseStructure<Hospital>> updateHospitalEmail(@RequestParam int id,@RequestParam String email)
 	{
 		return  service.updateHospitalEmail(id,email);
 		
 	}
 	
 	@PatchMapping("/updateCEO")
-	public ResponseStructure<Hospital> updateHospitalCEO(@RequestParam int id,@RequestParam String ceo)
+	public ResponseEntity<ResponseStructure<Hospital>> updateHospitalCEO(@RequestParam int id,@RequestParam String ceo)
 	{
 		return  service.updateHospitalCEO(id,ceo);
 		
 	}
 	
 	@DeleteMapping("/delete")
-	public ResponseStructure<Hospital> deleteHospitalById(@RequestParam int id)
+	public ResponseEntity<ResponseStructure<Hospital>> deleteHospitalById(@RequestParam int id)
 	{
 		return  service.deleteHospitalById(id);
 		
@@ -99,7 +99,7 @@ public class HospitalController
 	
 
 	@DeleteMapping("/deleteEmail")
-	public ResponseStructure<Hospital> deleteHospitalByEmail(@RequestParam String  email)
+	public ResponseEntity<ResponseStructure<Hospital>> deleteHospitalByEmail(@RequestParam String  email)
 	{
 		return  service.deleteHospitalByEmail(email);
 		

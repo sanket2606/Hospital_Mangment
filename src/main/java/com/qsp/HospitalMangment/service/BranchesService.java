@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,7 +27,7 @@ public class BranchesService
 	private AddressDao addressDao;
 
 	 ResponseStructure<Branch> structure = new  ResponseStructure<>();
-	public ResponseStructure<Branch> saveBranch(int hosptalid,int addressid,Branch branch) 
+	public ResponseEntity saveBranch(int hosptalid,int addressid,Branch branch) 
 	{
 		branch.setHospital(hospitalDao.findHospitalById(hosptalid));
 		branch.setAddress(addressDao.findAddressById(addressid));
@@ -34,10 +35,10 @@ public class BranchesService
 			 structure.setMessage("Branch Saved Succefully");
 			 structure.setStatus(HttpStatus.CREATED.value());
 			 structure.setData(branchDao.saveBranch(branch));
-			 return structure;
+			 return new ResponseEntity<ResponseStructure<Branch>>(structure, HttpStatus.CREATED);
 	}
-	
-	public ResponseStructure<Branch>  findBranchById(int id) 
+	 
+	public ResponseEntity<ResponseStructure<Branch>>  findBranchById(int id) 
 	{
 		Branch branch= branchDao.findBranchById(id) ;
 		if(branch != null)
@@ -45,7 +46,7 @@ public class BranchesService
 			structure.setMessage("Branch data found Succefully");
 			structure.setStatus(HttpStatus.FOUND.value());
 			structure.setData(branch);
-			return structure;
+			return new ResponseEntity<ResponseStructure<Branch>>(structure, HttpStatus.FOUND);
 			
 		}
 		else
@@ -53,15 +54,28 @@ public class BranchesService
 			structure.setMessage("Branch data Not found");
 			structure.setStatus(HttpStatus.FOUND.value());
 			structure.setData(branch);
-			return structure;
+			return new ResponseEntity<ResponseStructure<Branch>>(structure, HttpStatus.FOUND);
 		}
 		
 	}
 	
-	public  List<Branch> findBranchByManager(@RequestParam String manager) 
+	public  ResponseStructure<List<Branch>> findBranchByManager(@RequestParam String manager) 
 	{
-		return branchDao.findBranchByManager(manager) ;
-		
+		 ResponseStructure<List<Branch>> structure2 = new  ResponseStructure<>();
+		 List<Branch> list=branchDao.findBranchByManager(manager) ;
+		 System.out.println(list);
+		 System.out.println(list.isEmpty());
+		if(list.isEmpty())
+		{
+			structure2.setMessage("No Data Avlaibale");
+			structure2.setStatus(HttpStatus.NOT_FOUND.value());
+			structure2.setData(list);
+			return structure2;
+		}
+		structure2.setMessage("Data Found Suceefully");
+		structure2.setStatus(HttpStatus.FOUND.value());
+		structure2.setData(list);
+		return structure2;	
 	}
 	
 
